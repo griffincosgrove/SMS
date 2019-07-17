@@ -1,4 +1,4 @@
-package sms;
+package edu.jmu.planning;
 /*
 Team Project Part 1
 Authors and Roles: Griffin Cosgrove Lead CDF & FX Developer, Brace Brillhart FX Developer, John Gregory CDF Developer,

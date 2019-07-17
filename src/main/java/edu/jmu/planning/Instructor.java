@@ -1,4 +1,4 @@
-package sms;
+package edu.jmu.planning;
 
 /*
 Team Project Part 1
