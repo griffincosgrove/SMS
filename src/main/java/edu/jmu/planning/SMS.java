@@ -1,9 +1,6 @@
 package edu.jmu.planning;
 /*
-Team Project Part 1
-Authors and Roles: Griffin Cosgrove Lead CDF & FX Developer, Brace Brillhart FX Developer, John Gregory CDF Developer,
-                   Alex Rizzi Logic, Code Testing, and CDF Consultant, Trey Rustand Code Testing.
-Due Date: 4/24/2019
+Contributors: Griffin Cosgrove, Brace Brillhart, John Gregory, Alex Rizzi
 The purpose of this file is to set up the UI for the student management system. The UI system includes error checking
  */
 
@@ -727,7 +724,7 @@ public class SMS extends Application {
         @Override
         public void stop() {
            //inserts courses to the STUDENTENROLLMENT table *not needed for to-be
-        /*for (int i = 0; i < courses.size(); i++) 
+        for (int i = 0; i < courses.size(); i++) 
         {
             for (int j = 0; j < courses.get(i).getEnrolledStudents().size(); j++) 
             {
@@ -736,28 +733,29 @@ public class SMS extends Application {
             }
             insertItemCourse(courses.get(i));
         }
-        */
+        
         //inserts students to the STUDENT table.
         for (int i = DBID; i < students.size(); i++)
         {
             insertItemStudent(students.get(i));
         }
         
-        /*/inserts courses to the COURSE table *not needed for to-be
+        //inserts courses to the COURSE table *not needed for to-be
         for (int i = 0; i < courses.size(); i++)
         {
             insertItemCourse(courses.get(i));
         }
-        */
         
         
-        /*inserts instructors to the INSTRUCTOR table *not needed for to-be
+        
+        //inserts instructors to the INSTRUCTOR table *not needed for to-be
+        
         for(int i = 0; i < instructors.size(); i++)
         {
             insertItemInstructor(instructors.get(i));
         }
-        */
-        sendDBCommand("Commit work");
+        
+        sendDBCommand("commit work");
         
     }
         //method to check if a student is enrolled in a certain course
@@ -807,8 +805,7 @@ public class SMS extends Application {
         sqlQuery += "\'" + std.getStudentEmail() + "\'" + ")";
         sendDBCommand(sqlQuery);
     }
-        /*
-        *not needed for the to-be program
+      
         //method to create the INSERT statement and send to SQL and populate the COURSE table
         public void insertItemCourse(Course c) {
         String sqlQuery = "";
@@ -820,8 +817,8 @@ public class SMS extends Application {
         sqlQuery += "\'" + c.getCourseCapacity() + "\'" + ")";
         sendDBCommand(sqlQuery);
     }
-    */
-        /*method to create the INSERT statement for the STUDENTENROLLMENT
+    
+        //method to create the INSERT statement for the STUDENTENROLLMENT
         public void insertItemEnrollment(Course c, Student std) {
         String sqlQuery = "";
         sqlQuery += "INSERT INTO JAVAUSER.STUDENTENROLLMENT (COURSEID, STUDENTID) VALUES ";
@@ -829,9 +826,9 @@ public class SMS extends Application {
         sqlQuery += std.getStudentID() + ")";
         sendDBCommand(sqlQuery);
     }
-     */
+     
         
-        /*
+        
         public void insertItemInstructor(Instructor i)
         {
             String sqlQuery = "";
@@ -844,7 +841,7 @@ public class SMS extends Application {
             sqlQuery += "\'" + i.getEmail() + "\')";
             sendDBCommand(sqlQuery);
         }
-        */
+        
         
         //this method loads records from the sql database
         public void loadDataFromDB() {
