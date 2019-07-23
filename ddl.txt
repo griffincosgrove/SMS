@@ -1,0 +1,47 @@
+DROP TABLE INSTRUCTORCOURSE;
+DROP TABLE STUDENTENROLLMENT;
+DROP TABLE COURSE;
+DROP TABLE INSTRUCTOR;
+DROP TABLE STUDENT;
+
+CREATE TABLE STUDENT(
+	StudentID		number(38) primary key,
+	StudentName 	varchar2(15),
+	StudentYear 	number(38),
+	StudentMajor	varchar2(15),
+	StudentGPA		float,
+	StudentEmail	varchar2(15)
+);
+
+CREATE TABLE COURSE(
+	courseID		int primary key,
+	courseName		varchar(10),
+	courseBldg		varchar(15),
+	courseRoom		int, 
+	courseCapacity	int
+);
+
+CREATE TABLE INSTRUCTOR(
+	instrID			int primary key,
+	instrName		varchar(30),
+	instrPrefix		varchar(4),
+	instrOffice		varchar(4),
+	instrDept		varchar(30),
+	instrEmail		varchar(30)
+);
+
+CREATE TABLE STUDENTENROLLMENT(
+	courseID 		int
+		references COURSE(courseID),
+	studentID 		int
+		references STUDENT(StudentID),
+	primary key (courseID, studentID)
+);
+
+CREATE TABLE INSTRUCTORCOURSE(
+	instrID			int
+		references INSTRUCTOR(instrID),
+	courseID		int
+		references COURSE(courseID),
+	primary key (instrID, courseID)
+);
