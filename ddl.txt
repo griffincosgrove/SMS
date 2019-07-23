@@ -5,20 +5,20 @@ DROP TABLE INSTRUCTOR;
 DROP TABLE STUDENT;
 
 CREATE TABLE STUDENT(
-	StudentID		number(38) primary key,
+	StudentID	int primary key,
 	StudentName 	varchar2(15),
 	StudentYear 	number(38),
 	StudentMajor	varchar2(15),
-	StudentGPA		float,
+	StudentGPA	float,
 	StudentEmail	varchar2(15)
 );
 
 CREATE TABLE COURSE(
 	courseID		int primary key,
 	courseName		varchar(10),
-	courseBldg		varchar(15),
+	courseBldg		varchar(10),
 	courseRoom		int, 
-	courseCapacity	int
+	courseCapacity		int
 );
 
 CREATE TABLE INSTRUCTOR(
@@ -45,3 +45,4 @@ CREATE TABLE INSTRUCTORCOURSE(
 		references COURSE(courseID),
 	primary key (instrID, courseID)
 );
+
