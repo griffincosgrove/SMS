@@ -689,6 +689,8 @@ public class SMS extends Application {
         });
         
         loadDataFromDB();
+        loadInstructor();
+        loadCourse();
         //Check if any students are inserted into the ArrayList
         //if true then the combo box will be populated with the students.
         if(students.size() > 0)
@@ -696,7 +698,17 @@ public class SMS extends Application {
                 addStudentsOnLaunch(students);
                 Student.setNextID(students.size());              
                 DBID = (students.size());   
-            }                      
+            }
+        
+        if(courses.size() > 0)
+        {
+            addCoursesonLaunch(courses);
+        }
+
+        if (instructors.size() > 0)
+        {
+            addInstructorOnLaunch(instructors);
+        }
     }
     
     //method to delete records in the table on start. so records are not duplicated
@@ -709,6 +721,23 @@ public class SMS extends Application {
         //sqlQuery += (students.s ize() - 1) + ";";
         sendDBCommand(sqlQuery);
         
+    }
+    
+    //method to add courses to the arraylist on launch
+    public void addCoursesonLaunch(ArrayList<Course> courses)
+    {
+        for(int i = 0; i < courses.size(); i++)
+        {
+            obsToCourse.add(courses.get(i).getCourseName());
+        }
+    }
+
+    public void addInstructorOnLaunch(ArrayList<Instructor> instructors)
+    {
+        for(int i =0; i < instructors.size(); i++)
+        {
+            obsInstructorIs.add(instructors.get(i).getName());
+        }
     }
     
        //method to add students to the ArrayList students on launch
@@ -740,7 +769,7 @@ public class SMS extends Application {
             insertItemStudent(students.get(i));
         }
         
-        //inserts courses to the COURSE table *not needed for to-be
+        //inserts courses to the COURSE table
         for (int i = 0; i < courses.size(); i++)
         {
             insertItemCourse(courses.get(i));
@@ -748,7 +777,7 @@ public class SMS extends Application {
         
         
         
-        //inserts instructors to the INSTRUCTOR table *not needed for to-be
+        //inserts instructors to the INSTRUCTOR table
         
         for(int i = 0; i < instructors.size(); i++)
         {
@@ -857,9 +886,7 @@ public class SMS extends Application {
                 int year = dbResults.getInt(3);              
                 String major = dbResults.getString(4);
                 double gpa = dbResults.getFloat(5);
-                String email = dbResults.getString(6);
-                
-                
+                String email = dbResults.getString(6);               
                 Student std = new Student(name, year, major, gpa, email, id);
                 students.add(std);
              }
@@ -867,6 +894,52 @@ public class SMS extends Application {
              System.out.println(sqle.toString());
          }
         }
+        
+    public void loadInstructor()
+    {
+        String sqlQuery = "SELECT * FROM JAVAUSER.INSTRUCTOR ORDER BY INSTRID";
+        sendDBCommand(sqlQuery);
+        try {
+            txtOutput.clear();
+            while (dbResults.next()) 
+            {
+                int ID = dbResults.getInt(1);
+                String name = dbResults.getString(2);
+                String prefix = dbResults.getString(3);
+                String office = dbResults.getString(4);
+                String dept = dbResults.getString(5);
+                String email = dbResults.getString(6);
+                Instructor instr = new Instructor(name, prefix, office, dept, email);
+                instructors.add(instr);
+            }
+        }
+        catch (SQLException sqle) {
+            System.out.println(sqle.toString());
+        }
+       }
+
+       public void loadCourse()
+       {
+           String sqlQuery = "SELECT * FROM JAVAUSER.COURSE ORDER BY COURSEID";
+           sendDBCommand(sqlQuery);
+           try {
+               txtOutput.clear();
+               while (dbResults.next()) 
+               {
+                   int ID = dbResults.getInt(1);
+                   String name = dbResults.getString(2);
+                   String building = dbResults.getString(3);
+                   String room = dbResults.getString(4); //this line is what could be causing problems xxxx
+                   int capacity = dbResults.getInt(5);
+                   Course course = new Course(name, building, room, capacity);
+                   courses.add(course);
+               }
+           }
+           catch (SQLException sqle) {
+               System.out.println(sqle.toString());
+           }
+          }
+   
 
     //validate student data entry
     public boolean studentValidate() {
